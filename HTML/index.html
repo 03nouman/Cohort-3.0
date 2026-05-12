@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <details>
+      <summary>Click to expand this section</summary>
+      <p>
+        This content is hidden by default and revealed on click. Google indexes
+        both open and closed content.
+      </p>
+    </details>
+
+    <dialog id="my-modal">
+      <h2>Are you sure?</h2>
+      <p>This action cannot be undone.</p>
+      <button onclick="document.getElementById('my-modal').close()">
+        Cancel
+      </button>
+      <button onclick="document.getElementById('my-modal').close()">
+        Confirm
+      </button>
+    </dialog>
+    <button onclick="document.getElementById('my-modal').showModal()">
+      Open modal
+    </button>
+
+    <!-- progress — native progress bar -->
+    <label for="upload">Upload progress:</label>
+    <progress id="upload" value="65" max="100">65%</progress>
+
+    <!-- meter — a measurement within a known range -->
+    <label for="disk">Disk usage:</label>
+    <meter id="disk" value="6" min="0" max="10" low="3" high="8" optimum="2">
+      6GB
+    </meter>
+  </body>
+</html>

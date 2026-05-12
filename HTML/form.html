@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<body>
+    <h1>Student Registration Form</h1>
+    <form action="">
+        <fieldset>
+            <legend>Personal Information</legend>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age"><br><br>
+
+            <br><br>
+
+
+        </fieldset>
+        <br/>
+        <br/>
+                    <fieldset>
+            <legend>Address Details</legend>
+
+                    <label for="address">Address:</label><br>
+                    <textarea name="address" id="address" cols="30" rows="5"></textarea><br><br>
+
+                    <label for="city">City:</label>
+                    <select name="city" id="city">
+                        <option value="newyork">New York</option>
+                        <option value="losangeles">Los Angeles</option>
+                        <option value="chicago">Chicago</option>
+                    </select><br><br>
+
+
+            </fieldset>
+            <br/><br/>
+        
+            <fieldset>
+            <legend>Course Selection</legend>
+                                <label for="courses">Courses:</label>
+                    <select id="courses">
+                        <optgroup label="Frontend">
+                            <option>HTML</option>
+                            <option>CSS</option>
+                            <option>JS</option>
+                        </optgroup>
+                        <optgroup label="Backend">
+                            <option>Nodejs</option>
+                            <option>Expressjs</option>
+                            <option>Mongodb</option>
+                        </optgroup>
+                    </select>
+            </fieldset>
+            <br/><br/>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

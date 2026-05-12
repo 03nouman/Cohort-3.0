@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: machina;
+}
+
+@font-face {
+  font-family: machina;
+  src: url(./NeueMachina-Regular.woff2);
+}
+#course-card {
+  width: 300px;
+  height: 450px;
+  background-color: rgb(240, 207, 207);
+  margin: 100px;
+  padding: 20px;
+  border-radius: 16px;
+}
+#course-card h1 {
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section {
+  margin-top: 12px;
+}
+
+.section h2 {
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+footer {
+  margin-top: 12px;
+}
+
+footer button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 4px;
+  transition: all 0.3s cubic-bezier(0.05, 0.67, 0.7, 0.12);
+}
+
+footer button:hover {
+  background-color: rgb(91, 87, 87);
+  cursor: pointer;
+  color: white;
+}
+
+#box1 {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+  padding: 4px;
+}
+#box2 {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* to center the box exactly at the middle of the page */
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+  padding: 4px;
+}
+#box3 {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 998;
+  font-size: 30px;
+  font-weight: 900;
+  color: white;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
