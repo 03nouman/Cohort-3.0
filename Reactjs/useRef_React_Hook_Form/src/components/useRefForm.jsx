@@ -40,8 +40,8 @@ const AddProduct = () => {
             </label>
 
             <input
-              //   ref={productNameRef} // bad practice
-              ref={(e) => (formRef.current.productName = e)}
+              //   ref={productNameRef} // if it is a individual useRef variable,[ bad practice]
+              ref={(e) => (formRef.current.productName = e)} // if it is a object inside multiple refrence
               type="text"
               id="productName"
               placeholder="Enter product name"
