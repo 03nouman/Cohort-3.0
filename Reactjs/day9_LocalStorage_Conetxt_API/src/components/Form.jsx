@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { nanoid } from "nanoid";
 
-const Form = ({ setUsers, setToggle, users }) => {
+const Form = ({ setUsers, setToggle, users, updatedUser, updateMode }) => {
   // console.log("form rendering");// 2 times re-rendering first time and on trigged of an erorr
   const {
     register,
@@ -10,12 +11,7 @@ const Form = ({ setUsers, setToggle, users }) => {
     formState: { errors },
   } = useForm({
     mode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      mobile: "",
-      image: "",
-    },
+    defaultValues: updatedUser,
   });
 
   // Local Storage of browser.
@@ -23,18 +19,28 @@ const Form = ({ setUsers, setToggle, users }) => {
   // let greetings = localStorage.getItem("greetings");
   // console.log(greetings);
   // console.log("erors", errors);
+
   const formSubmit = (data) => {
-    console.log(data);
-    // Below setUser Asynchronus code divided into synchronous and asynchronous code and optimized the code.
-    let currentUser = [...users, data]; //sync code
-    setUsers(currentUser); // async code
-    localStorage.setItem("users", JSON.stringify(currentUser));
+    // console.log(data);
+    if (updatedUser) {
+      // update code
+      setUsers((prev) => {
+        return prev.map((val) => {
+          return val.id === data.id ? { ...data } : val;
+        });
+      });
+    } else {
+      // Below setUser Asynchronus code divided into synchronous and asynchronous code and this way optimizing the code.
+      let currentUser = [...users, { ...data, id: nanoid() }]; //sync code
+      setUsers(currentUser); // async code
+      localStorage.setItem("users", JSON.stringify(currentUser));
 
-    // Below code runs one step behind, due to asynchronous behaviour of setState Function.
-    // setUsers([...users, data]);// direct update
+      // Below code runs one step behind, due to asynchronous behaviour of setState Function.
+      // setUsers([...users, data]);// direct update
 
-    // setUsers((prev) => [...prev, data]); // functional update
-    // localStorage.setItem("users", JSON.stringify(users));
+      // setUsers((prev) => [...prev, data]); // functional update
+      // localStorage.setItem("users", JSON.stringify(users));
+    }
     reset();
     setToggle((prev) => !prev);
   };
@@ -110,7 +116,7 @@ const Form = ({ setUsers, setToggle, users }) => {
           type="submit"
           className="p-2 rounded bg-blue-600 cursor-pointer"
         >
-          Add User
+          {updateMode ? "Save" : "Add User"}
         </button>
       </form>
     </div>

@@ -1,8 +1,14 @@
 import React from "react";
 
-const UserCard = ({ user, setToggle }) => {
+const UserCard = ({
+  user,
+  setToggle,
+  deleteUser,
+  setUpdatedUser,
+  setUpdateMode,
+}) => {
   return (
-    <div className="flex flex-col gap-2 border-white p-2 w-60 bg-gray-700 border rounded">
+    <div className="flex flex-col gap-2 border-white p-2 w-54 bg-gray-700 border rounded-xl">
       <div className="">
         <img
           className="object-cover border rounded-2xl"
@@ -17,12 +23,19 @@ const UserCard = ({ user, setToggle }) => {
       </div>
       <div className="flex gap-4">
         <button
-          className="p-4 bg-amber-400 rounded cursor-pointer"
-          onClick={() => setToggle((prev) => !prev)}
+          className="p-2 bg-amber-400 rounded cursor-pointer"
+          onClick={() => {
+            setUpdatedUser(user);
+            setUpdateMode((prev) => !prev);
+            setToggle((prev) => !prev);
+          }}
         >
           Update
         </button>
-        <button className="p-4 bg-red-600 rounded cursor-pointer">
+        <button
+          onClick={() => deleteUser(user.id)}
+          className="p-2 bg-red-600 rounded cursor-pointer"
+        >
           Delete
         </button>
       </div>
