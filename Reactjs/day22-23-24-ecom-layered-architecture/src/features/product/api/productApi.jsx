@@ -1,15 +1,14 @@
 import { axiosIntance } from "../../../config/axiosInstance";
 
-export const getAllProductApi = async () => {
-  console.log("api calling...");
+export const getAllProductsApi = async (search) => {
+  let url = search ? `/products/search?q=${search}` : "/products";
+  let response = await axiosIntance.get(url);
+  // console.log("response from product api..", response);
+  return response.data;
+};
 
-  try {
-    let res = await axiosInstance.get("/products");
-    console.log("response", res);
-
-    return res.data.products;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+export const getProductCategoriesApi = async () => {
+  let response = await axiosIntance.get("/products/categories");
+  // console.log(response);
+  return response.data;
 };
