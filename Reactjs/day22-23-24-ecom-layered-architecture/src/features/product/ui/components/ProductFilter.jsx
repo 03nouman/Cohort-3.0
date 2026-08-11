@@ -2,8 +2,8 @@ import React from "react";
 import { Search, ChevronDown } from "lucide-react";
 import { useAllCategories } from "../../hooks/useProductHook";
 
-const ProductFilters = ({ search, setSearch }) => {
-  let { data, isPending, eror } = useAllCategories();
+const ProductFilters = ({ search, setSearch, category, setCategory }) => {
+  let { data: categories, isPending, eror } = useAllCategories();
 
   if (isPending) return <h1>loading categories</h1>;
   return (
@@ -34,14 +34,14 @@ const ProductFilters = ({ search, setSearch }) => {
         {/* Category Section */}
         <div className="relative w-full md:w-56">
           <select
-            // value={category}
-            // onChange={(e) => setCategory(e.target.value)}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className="h-11 w-full cursor-pointer appearance-none rounded-lg border border-gray-700 bg-gray-950 px-4 pr-10 text-sm text-gray-300 outline-none transition-all duration-200 focus:border-red-600 focus:ring-1 focus:ring-red-600"
           >
             <option value="">All Categories</option>
 
-            {data &&
-              data.map((item) => (
+            {categories &&
+              categories.map((item) => (
                 <option key={item.slug} value={item.name}>
                   {item.name}
                 </option>
