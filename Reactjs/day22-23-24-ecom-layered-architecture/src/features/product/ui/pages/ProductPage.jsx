@@ -11,15 +11,19 @@ import Pagination from "../components/Pagination";
 
 const ProductPage = () => {
   let {
-    data,
+    // data,
+    allProducts,
     isPending,
     error,
-    isPlaceholderData,
     search,
     setSearch,
-    page,
-    setPage,
-    totalPages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    // isPlaceholderData,
+    // page,
+    // setPage,
+    // totalPages,
   } = useAllProduct();
 
   let {
@@ -30,8 +34,6 @@ const ProductPage = () => {
 
   if (isPending) return <h1>Loading product...</h1>;
   if (error) return "Something went wrong";
-
-  // console.log(data);
 
   return (
     <div className="flex flex-col gap-4">
@@ -44,26 +46,36 @@ const ProductPage = () => {
         />
       </div>
       <div
-        style={{ opacity: isPlaceholderData ? 0.3 : 1 }}
+        // style={{ opacity: isPlaceholderData ? 0.3 : 1 }}
         className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
         {productByCategory?.products.length
-          ? data &&
-            productByCategory?.products.map((val) => (
+          ? allProducts &&
+            productByCategory?.products?.map((val) => (
               <ProductCard key={val.id} product={val} />
             ))
-          : data &&
-            data?.products.map((val) => (
+          : allProducts &&
+            allProducts?.map((val) => (
               <ProductCard key={val.id} product={val} />
             ))}
       </div>
-      <Pagination
+      <div className="flex justify-center items-center">
+        {hasNextPage && (
+          <button
+            onClick={() => fetchNextPage()}
+            className="text-2xl text-red-600 font-medium cursor-pointer"
+          >
+            {isFetchingNextPage ? "Loading" : " Load more..."}
+          </button>
+        )}
+      </div>
+      {/* <Pagination
         currentPage={page}
         totalPages={data.totalPages}
         onPrevious={() => setPage((prev) => prev - 1)}
         onNext={() => setPage((prev) => prev + 1)}
         totalPages={totalPages}
-      />
+      /> */}
     </div>
   );
 };

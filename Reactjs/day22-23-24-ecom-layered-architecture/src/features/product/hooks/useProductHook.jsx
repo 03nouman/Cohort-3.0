@@ -1,4 +1,8 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useQuery,
+} from "@tanstack/react-query";
 import {
   getAllProductByCategory,
   getAllProductsApi,
@@ -10,6 +14,7 @@ export const useAllProduct = () => {
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebounceSearch] = useState(null);
   const [page, setPage] = useState(1);
+  let limit = 40;
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
@@ -18,24 +23,56 @@ export const useAllProduct = () => {
     return () => clearTimeout(timeOut);
   }, [search]);
 
-  let { data, isPending, error, isPlaceholderData } = useQuery({
-    queryKey: ["products", debounceSearch, page],
-    queryFn: () => getAllProductsApi(debounceSearch, page),
-    placeholderData: keepPreviousData,
+  // ---------> below block of code for fetching products,searching and pagination
+  // let { data, isPending, error, isPlaceholderData } = useQuery({
+  //   queryKey: ["products", debounceSearch, page],
+  //   queryFn: () => getAllProductsApi(debounceSearch, page),
+  //   placeholderData: keepPreviousData,
+  // });
+  // let totalPages = Math.ceil(data?.total / 10);
+
+  // ---------> below block of code for fetching products,searching and infinite scroll
+
+  let {
+    data,
+    isPending,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["products", debounceSearch],
+    queryFn: ({ pageParam }) =>
+      getAllProductsApi(debounceSearch, pageParam, limit),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allpage) => {
+      let loadedData = allpage.length * limit;
+
+      if (loadedData < lastPage.total) {
+        return loadedData;
+      } else {
+        return undefined;
+      }
+    },
   });
-  // console.log("products data...", data);
-  let totalPages = Math.ceil(data?.total / 10);
+
+  let allProducts = data?.pages?.flatMap((val) => val?.products) ?? [];
+  // console.log("allProducts", allProducts);
 
   return {
     data,
     isPending,
     error,
-    isPlaceholderData,
     search,
     setSearch,
-    page,
-    setPage,
-    totalPages,
+    fetchNextPage,
+    allProducts,
+    hasNextPage,
+    isFetchingNextPage,
+    // isPlaceholderData,
+    // page,
+    // setPage,
+    // totalPages,
   };
 };
 
