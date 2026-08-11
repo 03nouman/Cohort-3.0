@@ -14,9 +14,15 @@ import CartPage from "../features/cart/ui/pages/CartPage";
 import OrderPage from "../features/orders/ui/pages/OrderPage";
 import { hydrateUserAction } from "../features/auth/state/features/authAction";
 import AboutPage from "../shared/ui/pages/AboutPage";
+import {
+  useAllCategories,
+  useAllProduct,
+} from "../features/product/hooks/useProductHook";
 
 const AppRoutes = () => {
   let dispatch = useDispatch();
+  let { data: catagories } = useAllCategories();
+  let { data: products } = useAllProduct();
 
   useEffect(() => {
     (() => {
@@ -59,7 +65,7 @@ const AppRoutes = () => {
           children: [
             {
               path: "",
-              element: <HomePage />,
+              element: <HomePage products={products} catagories={catagories} />,
             },
             {
               path: "product",
