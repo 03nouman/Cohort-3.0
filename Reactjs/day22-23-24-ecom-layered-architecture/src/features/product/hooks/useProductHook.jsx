@@ -41,7 +41,6 @@ export const useAllCategories = () => {
 
 export const useAllProductByCategory = () => {
   let [category, setCategory] = useState(null);
-  console.log("category", category);
 
   let { data } = useQuery({
     queryKey: ["productByCategory", category],
