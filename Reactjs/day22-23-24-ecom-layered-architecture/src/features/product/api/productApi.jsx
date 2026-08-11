@@ -1,7 +1,9 @@
 import { axiosIntance } from "../../../config/axiosInstance";
 
-export const getAllProductsApi = async (search) => {
-  let url = search ? `/products/search?q=${search}` : "/products?limit=100";
+export const getAllProductsApi = async (search, page = 1) => {
+  let url = search
+    ? `/products/search?q=${search}`
+    : `/products?limit=${10}&skip=${page * 10}`;
   let response = await axiosIntance.get(url);
   // console.log("response from product api..", response?.data?.products);
   return response.data;

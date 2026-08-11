@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   getAllProductByCategory,
   getAllProductsApi,
@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export const useAllProduct = () => {
   const [search, setSearch] = useState("");
   const [debounceSearch, setDebounceSearch] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let timeOut = setTimeout(() => {
@@ -17,18 +18,24 @@ export const useAllProduct = () => {
     return () => clearTimeout(timeOut);
   }, [search]);
 
-  let { data, isPending, error } = useQuery({
-    queryKey: ["products", debounceSearch],
-    queryFn: () => getAllProductsApi(debounceSearch),
+  let { data, isPending, error, isPlaceholderData } = useQuery({
+    queryKey: ["products", debounceSearch, page],
+    queryFn: () => getAllProductsApi(debounceSearch, page),
+    placeholderData: keepPreviousData,
   });
   // console.log("products data...", data);
+  let totalPages = Math.ceil(data?.total / 10);
 
   return {
     data,
     isPending,
     error,
+    isPlaceholderData,
     search,
     setSearch,
+    page,
+    setPage,
+    totalPages,
   };
 };
 
